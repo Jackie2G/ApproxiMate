@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "28526147323",
+    "firebase_url": "https://approximatefirebase.firebaseio.com",
+    "project_id": "approximatefirebase",
+    "storage_bucket": "approximatefirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28526147323:android:e4cad48d4b54a83b4fa25e",
+        "android_client_info": {
+          "package_name": "com.companyname.approximate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28526147323-pi1bnhavj8gdb5slhcajp1t65hnkja8g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIk8rjE5OSPGx2cnIRxvoueYPNZjvhPjw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28526147323-pi1bnhavj8gdb5slhcajp1t65hnkja8g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "28526147323-lhji7f416bl04j8r4p5muo1pqjr589rl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.companyname.ApproxiMate"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

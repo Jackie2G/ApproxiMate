@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ApproxiMate.LoggedPage">
+    <ContentPage.Content>
+        <StackLayout
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+
+            <Label
+                Text="Hello logged user"
+                FontSize="Large">
+            </Label>
+
+            <Button
+                Text="Sign Out"
+                Clicked="SignOut"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+            </Button>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

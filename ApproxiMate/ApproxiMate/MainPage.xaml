@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ApproxiMate.MainPage">
+
+    <StackLayout
+        VerticalOptions="Center"
+        Margin="20">
+        
+        <Label
+            Text="ApproxiMate"
+            HorizontalOptions="Center"
+            TextColor="AliceBlue"
+            FontSize="35"
+            Margin="0, 20">
+        </Label>
+        
+        <Entry
+            Placeholder="E-mail"
+            Keyboard="Email"
+            x:Name="EmailInput">
+        </Entry>
+        
+        <Entry
+            Placeholder="Password"
+            IsPassword="True"
+            x:Name="PasswordInput">
+        </Entry>
+        
+        <Button
+            Text="Log in"
+            Clicked="LoginClicked"
+            Margin="60, 40"
+            BackgroundColor="Transparent"
+            TextColor="White">
+        </Button>
+        
+        <Button
+            Text="Create new account"
+            TextColor="AliceBlue"
+            HorizontalOptions="Center"
+            BackgroundColor="Transparent"
+            Clicked="SignUpClicked">
+        </Button>
+        
+    </StackLayout>
+    
+</ContentPage>

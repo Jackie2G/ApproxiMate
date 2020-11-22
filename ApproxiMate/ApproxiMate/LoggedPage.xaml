@@ -13,12 +13,19 @@
             </Label>
 
             <Button
+                Text="Profile"
+                Clicked="ViewProfile"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+            </Button>
+            
+            <Button
                 Text="Sign Out"
                 Clicked="SignOut"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
             </Button>
-            
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

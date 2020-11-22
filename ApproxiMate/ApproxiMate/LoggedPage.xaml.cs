@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApproxiMate.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,11 @@ namespace ApproxiMate
             {
                 Application.Current.MainPage = new MainPage();
             }
+        }
+
+        private void ViewProfile(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new Profile();
         }
     }
 }

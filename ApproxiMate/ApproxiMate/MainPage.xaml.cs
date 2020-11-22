@@ -23,6 +23,7 @@ namespace ApproxiMate
 
             if (token != string.Empty)
             {
+                await DisplayAlert("Uid", token, "Ok");
                 Application.Current.MainPage = new LoggedPage();
             }
             else

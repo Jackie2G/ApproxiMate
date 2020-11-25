@@ -37,7 +37,7 @@ namespace ApproxiMate.Views
         //        });
         //        if (file == null)
         //            return;
-        //        photoImage.Source = ImageSource.FromStream(() =>
+        //        image.Source = ImageSource.FromStream(() =>
         //        {
         //            var imageStream = file.GetStream();
         //            return imageStream;

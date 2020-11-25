@@ -21,7 +21,20 @@ namespace ApproxiMate.Views
         public string Gender { get; set; }
         public string OppositeGender { get; set; }
         public string ImageUrl { get; set; }
-        public ImageSource photoImage { get; set; }
+        private ImageSource _photoImage;
+        public ImageSource photoImage
+        {
+            get 
+            {
+                return _photoImage;
+            }
+            set
+            {
+                _photoImage = value;
+                OnPropertyChanged();
+            }
+        }
+       // public ImageSource photoImage { get; set; }
 
         private DBFirebase _services;
         private FirebaseStorageHelper _firebaseStorageHelper;
@@ -63,11 +76,12 @@ namespace ApproxiMate.Views
                 });
                 if (file == null)
                     return;
-                photoImage = ImageSource.FromStream(() =>
+                _photoImage = ImageSource.FromStream(() =>
                 {
                     var imageStream = file.GetStream();
                     return imageStream;
                 });
+                photoImage = _photoImage;
             }
             catch (Exception ex)
             {

@@ -14,6 +14,7 @@ namespace ApproxiMate.Views
 {
     public class UsersViewModel: BaseViewModel
     {
+        IAuth auth;
         public string Name { get; set; }
         public int Age { get; set; }
         public string City { get; set; }
@@ -57,10 +58,12 @@ namespace ApproxiMate.Views
         }
         public UsersViewModel()
         {
+            auth = DependencyService.Get<IAuth>();
             _firebaseStorageHelper = new FirebaseStorageHelper();
             _services = new DBFirebase();
             Users = _services.getUsers();
-            AddUserCommand = new Command(async () => await AddStudentAsync(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
+            //AddUserCommand = new Command(async () => await AddStudentAsync(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
+            AddUserCommand = new Command(async () => await auth.AddUser(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
             SelectPhotoCommand = new Command(async () => await SelectPhoto());
             UploadPhotoCommand = new Command(async () => await UploadPhoto());
         }
@@ -72,7 +75,7 @@ namespace ApproxiMate.Views
             {
                 file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
                 {
-                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Large
                 });
                 if (file == null)
                     return;

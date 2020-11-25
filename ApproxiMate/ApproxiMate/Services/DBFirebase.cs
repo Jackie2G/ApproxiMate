@@ -37,7 +37,7 @@ namespace ApproxiMate.Services
 
         public async Task AddUser(string name, int age, string city, string description, string gender, string oppositeGender, string imageUrl)
         {
-            User u = new User() { Name = name, Age = age, City = city, Description = description, Gender = gender, OppositeGender = oppositeGender, ImageUrl = imageUrl};
+            User u = new User() { Name = name, Age = age, City = city, Description = description, Gender = gender, OppositeGender = oppositeGender, ImageUrl = imageUrl };
 
             await client
                 .Child("Users")

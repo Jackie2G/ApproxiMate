@@ -13,12 +13,16 @@ using Xamarin.Forms;
 using Firebase.Auth;
 using System.Reflection;
 using ApproxiMate.Droid;
+using ApproxiMate.Models;
+using Firebase.Database;
+using Firebase.Database.Query;
 
 [assembly: Dependency(typeof(AuthDroid))]
 namespace ApproxiMate.Droid
 {
     class AuthDroid : IAuth
     {
+        FirebaseClient client = new FirebaseClient("https://approximatefirebase.firebaseio.com/");
         public AuthDroid()
         {
 
@@ -81,6 +85,23 @@ namespace ApproxiMate.Droid
                 e.PrintStackTrace();
                 return string.Empty;
             }
+        }
+
+        public async Task AddUser(string name, int age, string city, string description, string gender, string oppositeGender, string imageUrl)
+        {
+            User u = new User() { Name = name, Age = age, City = city, Description = description, Gender = gender, OppositeGender = oppositeGender, ImageUrl = imageUrl };
+            var uuid = FirebaseAuth.Instance.CurrentUser;
+            var token = uuid.Uid;
+
+            //await client
+            //    .Child("Users")
+            //    .Child(uuid)
+            //    .PutAsync<User>(u);
+
+            await client
+                .Child("Users")
+                .Child(token)
+                .PutAsync(u);
         }
     }
 }

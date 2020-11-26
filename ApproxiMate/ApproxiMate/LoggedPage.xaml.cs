@@ -30,9 +30,19 @@ namespace ApproxiMate
             }
         }
 
-        private void ViewProfile(object sender, EventArgs e)
+        private void CreatePRrofile(object sender, EventArgs e)
         {
             Application.Current.MainPage = new Profile();
+        }
+
+        private void ViewUsers(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new Users();
+        }
+
+        private void ViewUserProfile(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new UserProfile();
         }
     }
 }

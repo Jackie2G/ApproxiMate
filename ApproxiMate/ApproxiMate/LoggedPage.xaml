@@ -13,8 +13,22 @@
             </Label>
 
             <Button
-                Text="Profile"
-                Clicked="ViewProfile"
+                Text="Create Profile"
+                Clicked="CreatePRrofile"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+            </Button>
+
+            <Button
+                Text="View Users"
+                Clicked="ViewUsers"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+            </Button>
+
+            <Button
+                Text="View Profile"
+                Clicked="ViewUserProfile"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
             </Button>

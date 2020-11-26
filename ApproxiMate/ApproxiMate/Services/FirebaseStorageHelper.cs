@@ -25,5 +25,15 @@ namespace ApproxiMate.Services
 
             return imageUrl;
         }
+
+        public async Task<string> GetFile(string fileName)
+        {
+            var test = await firebaseStorage
+                .Child("UserPhotos")
+                .Child(fileName)
+                .GetDownloadUrlAsync();
+
+            return test;
+        }
     }
 }

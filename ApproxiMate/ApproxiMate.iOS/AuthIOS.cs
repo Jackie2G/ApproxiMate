@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UIKit;
 using Firebase.Auth;
+using System.Collections.ObjectModel;
 
 [assembly: Dependency(typeof(AuthIOS))]
 namespace ApproxiMate.iOS
@@ -18,6 +19,16 @@ namespace ApproxiMate.iOS
         public AuthIOS()
         {
 
+        }
+
+        public Task AddUser(string name, int age, string city, string description, string gender, string oppositeGender, string imageUrl)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ObservableCollection<Models.User> GetUser()
+        {
+            throw new NotImplementedException();
         }
 
         public bool IsSignIn()
@@ -64,5 +75,6 @@ namespace ApproxiMate.iOS
                 return string.Empty;
             }
         }
+
     }
 }

@@ -16,6 +16,7 @@ using ApproxiMate.Droid;
 using ApproxiMate.Models;
 using Firebase.Database;
 using Firebase.Database.Query;
+using System.Collections.ObjectModel;
 
 [assembly: Dependency(typeof(AuthDroid))]
 namespace ApproxiMate.Droid
@@ -89,7 +90,7 @@ namespace ApproxiMate.Droid
 
         public async Task AddUser(string name, int age, string city, string description, string gender, string oppositeGender, string imageUrl)
         {
-            User u = new User() { Name = name, Age = age, City = city, Description = description, Gender = gender, OppositeGender = oppositeGender, ImageUrl = imageUrl };
+            User u = new User() { Name = name, Age = age, City = city, Description = description, Gender = gender, OppositeGender = oppositeGender, ImageUrl = imageUrl, Id = FirebaseAuth.Instance.CurrentUser.Uid };
             var uuid = FirebaseAuth.Instance.CurrentUser;
             var token = uuid.Uid;
 
@@ -102,6 +103,21 @@ namespace ApproxiMate.Droid
                 .Child("Users")
                 .Child(token)
                 .PutAsync(u);
+        }
+
+        public ObservableCollection<User> GetUser()
+        {
+            var uuid = FirebaseAuth.Instance.CurrentUser;
+            var token = uuid.Uid;
+
+            var userData = client.
+                Child("Users")
+                .AsObservable<User>()
+                .AsObservableCollection();
+
+            //var test = userData.Where(p => p.Id.Equals(token));
+
+            return userData;
         }
     }
 }

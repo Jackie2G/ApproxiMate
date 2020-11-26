@@ -26,6 +26,11 @@ namespace ApproxiMate.Views
             BindingContext = new UsersViewModel();
         }
 
+        private void MainMenu(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new LoggedPage();
+        }
+
         //private async void SelectPhoto(object sender, EventArgs e)
         //{
         //    await CrossMedia.Current.Initialize();

@@ -4,6 +4,7 @@ using MvvmHelpers;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System;
+using System.Collections.Generic;
 //using MvvmHelpers.Commands;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -23,6 +24,7 @@ namespace ApproxiMate.Views
         public string OppositeGender { get; set; }
         public string ImageUrl { get; set; }
         private ImageSource _photoImage;
+
         public ImageSource photoImage
         {
             get 
@@ -35,6 +37,19 @@ namespace ApproxiMate.Views
                 OnPropertyChanged();
             }
         }
+
+        private ImageSource _photo;
+
+        public ImageSource Photo
+        {
+            get { return _photo; }
+            set
+            {
+                _photo = value;
+                OnPropertyChanged();
+            }
+        }
+
        // public ImageSource photoImage { get; set; }
 
         private DBFirebase _services;
@@ -47,6 +62,8 @@ namespace ApproxiMate.Views
 
         private ObservableCollection<User> _users = new ObservableCollection<User>();
 
+        private ObservableCollection<User> _userProfile = new ObservableCollection<User>();
+
         public ObservableCollection<User> Users
         {
             get { return _users; }
@@ -56,6 +73,17 @@ namespace ApproxiMate.Views
                 OnPropertyChanged();
             }
         }
+
+        public ObservableCollection<User> UserProfile
+        {
+            get { return _userProfile; }
+            set
+            {
+                _userProfile = value;
+                OnPropertyChanged();
+            }
+        }
+
         public UsersViewModel()
         {
             auth = DependencyService.Get<IAuth>();
@@ -64,8 +92,11 @@ namespace ApproxiMate.Views
             Users = _services.getUsers();
             //AddUserCommand = new Command(async () => await AddStudentAsync(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
             AddUserCommand = new Command(async () => await auth.AddUser(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
+            UserProfile = auth.GetUser();
+            
             SelectPhotoCommand = new Command(async () => await SelectPhoto());
             UploadPhotoCommand = new Command(async () => await UploadPhoto());
+            DownloadPhoto();
         }
 
         public async Task SelectPhoto()
@@ -102,5 +133,13 @@ namespace ApproxiMate.Views
             var test = await _firebaseStorageHelper.UploadFile(file.GetStream(), Path.GetFileName(file.Path));
             ImageUrl = test;
         }
-    }
+
+        public async Task DownloadPhoto()
+        {
+            var list = new List<User>(UserProfile);
+            var test = await _firebaseStorageHelper.GetFile(list[0].ImageUrl);
+            _photo = ImageSource.FromUri(new System.Uri(test));
+            Photo = _photo;
+        }
+    } 
 }

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ApproxiMate.Views.UserProfile">
+    <ContentPage.Content>
+        <StackLayout>
+            <Image Source="{Binding Photo}" Aspect="AspectFill" HeightRequest="400"></Image>
+            <Frame HasShadow="False" CornerRadius="40" Margin="0, -50, 0, 0" VerticalOptions="FillAndExpand">
+                <ListView ItemsSource="{Binding UserProfile}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Name}"></Label>
+                                    <Label Text="{Binding Age}"></Label>
+                                    <Label Text="{Binding City}"></Label>
+                                    <Label Text="{Binding Description}"></Label>
+                                    <Label Text="{Binding Gender}"></Label>
+                                    <Label Text="{Binding OppositeGender}"></Label>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

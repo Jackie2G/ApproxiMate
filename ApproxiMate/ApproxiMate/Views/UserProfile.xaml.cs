@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace ApproxiMate.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Users : ContentPage
+    public partial class UserProfile : ContentPage
     {
-        public Users()
+        public UserProfile()
         {
             InitializeComponent();
             BindingContext = new UsersViewModel();

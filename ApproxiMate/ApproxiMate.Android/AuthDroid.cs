@@ -112,12 +112,27 @@ namespace ApproxiMate.Droid
 
             var userData = client.
                 Child("Users")
+                .Child(token)
                 .AsObservable<User>()
                 .AsObservableCollection();
 
             //var test = userData.Where(p => p.Id.Equals(token));
 
             return userData;
+        }
+
+        public async Task <User> GetUserProfile()
+        {
+            var uuid = FirebaseAuth.Instance.CurrentUser;
+            var token = uuid.Uid;
+
+            var userData = (await client.
+                Child("Users")
+                .Child(token)
+                .OnceSingleAsync<User>());
+
+            return userData;
+
         }
     }
 }

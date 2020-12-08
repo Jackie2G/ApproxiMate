@@ -13,6 +13,8 @@ namespace ApproxiMate
         Task<string> SignUpWithEmailAndPassword(string email, string password);
         Task AddUser(string name, int age, string city, string description, string gender, string oppositeGender, string imageUrl);
         ObservableCollection<User> GetUser();
+        //string GetUserProfile();
+        Task <User> GetUserProfile();
         bool SignOut();
         bool IsSignIn();
     }

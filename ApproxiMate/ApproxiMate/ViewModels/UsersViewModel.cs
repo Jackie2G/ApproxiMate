@@ -24,6 +24,7 @@ namespace ApproxiMate.Views
         public string OppositeGender { get; set; }
         public string ImageUrl { get; set; }
         private ImageSource _photoImage;
+        public User testUser;
 
         public ImageSource photoImage
         {
@@ -80,6 +81,7 @@ namespace ApproxiMate.Views
             set
             {
                 _userProfile = value;
+                //DownloadPhoto();
                 OnPropertyChanged();
             }
         }
@@ -92,11 +94,14 @@ namespace ApproxiMate.Views
             Users = _services.getUsers();
             //AddUserCommand = new Command(async () => await AddStudentAsync(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
             AddUserCommand = new Command(async () => await auth.AddUser(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
-            UserProfile = auth.GetUser();
+            //UserProfile = auth.GetUser();
+            DownloadPhoto();
             
             SelectPhotoCommand = new Command(async () => await SelectPhoto());
             UploadPhotoCommand = new Command(async () => await UploadPhoto());
-            DownloadPhoto();
+            var test = auth.GetUserProfile();
+            //if (UserProfile.Count != 0) 
+                //DownloadPhoto();
         }
 
         public async Task SelectPhoto()
@@ -137,7 +142,12 @@ namespace ApproxiMate.Views
         public async Task DownloadPhoto()
         {
             var list = new List<User>(UserProfile);
-            var test = await _firebaseStorageHelper.GetFile(list[0].ImageUrl);
+            testUser = await auth.GetUserProfile();
+            var testowo = new ObservableCollection<User>();
+            testowo.Add(testUser);
+            UserProfile = testowo;
+            //var test = await _firebaseStorageHelper.GetFile("https://firebasestorage.googleapis.com/v0/b/approximatefirebase.appspot.com/o/UserPhotos%2FIMG_20200805_192157.jpg?alt=media&token=b020a653-88f3-49b5-b862-b4b59a501e53");
+            var test = testUser.ImageUrl;
             _photo = ImageSource.FromUri(new System.Uri(test));
             Photo = _photo;
         }

@@ -31,6 +31,11 @@ namespace ApproxiMate.iOS
             throw new NotImplementedException();
         }
 
+        public Task<Models.User> GetUserProfile()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool IsSignIn()
         {
             var user = Auth.DefaultInstance.CurrentUser;

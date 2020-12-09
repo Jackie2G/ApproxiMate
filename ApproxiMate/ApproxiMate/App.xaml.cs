@@ -15,7 +15,7 @@ namespace ApproxiMate
 
             if (auth.IsSignIn())
             {
-                MainPage = new LoggedPage();
+                MainPage = new TabbedPage1();
             }
             else
             {

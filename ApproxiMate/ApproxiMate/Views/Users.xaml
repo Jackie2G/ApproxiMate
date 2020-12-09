@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ApproxiMate.Views.Users">
-    <ContentPage.Content>
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:swipecardview="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
+             x:Class="ApproxiMate.Views.Users"
+             xmlns:system="clr-namespace:System;assembly=netstandard" >
+    <!--<ContentPage.Content>
         <Grid Margin="20">
             <ListView ItemsSource="{Binding Users}">
                 <ListView.ItemTemplate>
@@ -21,5 +22,45 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-    </ContentPage.Content>
+    </ContentPage.Content>-->
+    <StackLayout>
+        <swipecardview:SwipeCardView
+            x:Name="SwipeView1" ItemsSource="{Binding Users}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+            Padding="10" SupportedSwipeDirections="Left, Right">
+            <swipecardview:SwipeCardView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Frame CornerRadius="10" Padding="8" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <AbsoluteLayout>
+                                <Image Source="{Binding ImageUrl}" Aspect="AspectFill" AbsoluteLayout.LayoutBounds=".5, 0.5, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                                </Image>
+                                <Label FontSize="20" FontAttributes="Bold" TextColor="Black"
+                                       AbsoluteLayout.LayoutBounds="0.1, 0.95, 100, 30" AbsoluteLayout.LayoutFlags="PositionProportional">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Name}"></Span>
+                                            <Span Text=", "></Span>
+                                            <Span Text="{Binding Age}"></Span>
+                                            <Span Text="{x:Static system:Environment.NewLine}"></Span>
+                                            <Span Text="{Binding Description}"></Span>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </AbsoluteLayout>
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </swipecardview:SwipeCardView.ItemTemplate>
+        </swipecardview:SwipeCardView>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10, 10, 50, 90" Spacing="30">
+            <StackLayout>
+                <Button x:Name="nopeButton" ImageSource="hate.jpg" Clicked="nopeButton_Clicked"
+                        WidthRequest="60" HeightRequest="60" CornerRadius="30" BackgroundColor="White" Scale="1"></Button>
+            </StackLayout>
+            <StackLayout VerticalOptions="Center">
+                <Button x:Name="likeButton" ImageSource="love.jpg" Clicked="likeButton_Clicked"
+                        WidthRequest="60" HeightRequest="60" CornerRadius="30" BackgroundColor="Green" Scale="1"></Button>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
 </ContentPage>

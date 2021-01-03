@@ -52,7 +52,7 @@
                 </DataTemplate>
             </swipecardview:SwipeCardView.ItemTemplate>
         </swipecardview:SwipeCardView>
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10, 10, 50, 90" Spacing="30">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10, 10, 20, 90" Spacing="30">
             <StackLayout>
                 <Button x:Name="nopeButton" ImageSource="hate.jpg" Clicked="nopeButton_Clicked"
                         WidthRequest="60" HeightRequest="60" CornerRadius="30" BackgroundColor="White" Scale="1"></Button>

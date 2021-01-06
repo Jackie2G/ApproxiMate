@@ -13,8 +13,11 @@ namespace ApproxiMate.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Users : ContentPage
     {
+        IAuth auth;
+
         public Users()
         {
+            auth = DependencyService.Get<IAuth>();
             InitializeComponent();
             BindingContext = new UsersViewModel();
         }
@@ -22,12 +25,15 @@ namespace ApproxiMate.Views
         private void nopeButton_Clicked(object sender, EventArgs e)
         {
             SwipeView1.InvokeSwipe((MLToolkit.Forms.SwipeCardView.Core.SwipeCardDirection)MLToolkit.Forms.SwipeCardView.Core.SwipeCardDirection.Left);
-            Console.WriteLine(((User)SwipeView1.TopItem).Id);
+            auth.AddHateUser(((User)SwipeView1.TopItem).Id);
+
         }
 
         private void likeButton_Clicked(object sender, EventArgs e)
         {
             SwipeView1.InvokeSwipe((MLToolkit.Forms.SwipeCardView.Core.SwipeCardDirection)MLToolkit.Forms.SwipeCardView.Core.SwipeCardDirection.Right);
+            auth.AddLoveUser(((User)SwipeView1.TopItem).Id);
+
         }
     }
 }

@@ -23,6 +23,7 @@ namespace ApproxiMate.Views
         public string Gender { get; set; }
         public string OppositeGender { get; set; }
         public string ImageUrl { get; set; }
+        public string UserMessage { get; set; }
         private ImageSource _photoImage;
         public User testUser;
 
@@ -64,6 +65,17 @@ namespace ApproxiMate.Views
         private ObservableCollection<User> _users = new ObservableCollection<User>();
 
         private ObservableCollection<User> _userProfile = new ObservableCollection<User>();
+        private ObservableCollection<string> _messages = new ObservableCollection<string>();
+
+        public ObservableCollection<string> Messages
+        {
+            get { return _messages; }
+            set
+            {
+                _messages = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ObservableCollection<User> Users
         {
@@ -92,6 +104,7 @@ namespace ApproxiMate.Views
             _firebaseStorageHelper = new FirebaseStorageHelper();
             _services = new DBFirebase();
             Users = _services.getUsers();
+            Messages = auth.GetUserMessages();
             //AddUserCommand = new Command(async () => await AddStudentAsync(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
             AddUserCommand = new Command(async () => await auth.AddUser(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
             //UserProfile = auth.GetUser();

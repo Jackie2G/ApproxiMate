@@ -11,6 +11,8 @@
   <ContentPage Title="Tab 2" />
   <ContentPage Title="Tab 3" />-->
     <!--<views:Profile Title="Register"></views:Profile>-->
+    <views:Options Title="Options"></views:Options>
+    <views:Messages Title="Messages"></views:Messages>
     <views:Users Title="Home"></views:Users>
     <views:UserProfile Title="Profile"></views:UserProfile>
 </TabbedPage>

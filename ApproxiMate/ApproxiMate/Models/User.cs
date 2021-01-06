@@ -14,5 +14,8 @@ namespace ApproxiMate.Models
         public string Gender { get; set; }
         public string OppositeGender { get; set; }
         public string ImageUrl { get; set; }
+        public List<string> LoveList { get; set; }
+        public List<string> HateList { get; set; }
+        public List<UserMessages> PairedList { get; set; }
     }
 }

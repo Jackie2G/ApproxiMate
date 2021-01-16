@@ -21,12 +21,32 @@ namespace ApproxiMate.iOS
 
         }
 
+        public Task AddHateUser(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddLoveUser(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task AddUser(string name, int age, string city, string description, string gender, string oppositeGender, string imageUrl)
         {
             throw new NotImplementedException();
         }
 
+        public Task<int> GetMatches()
+        {
+            throw new NotImplementedException();
+        }
+
         public ObservableCollection<Models.User> GetUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ObservableCollection<Models.User>> GetUserMessages(ObservableCollection<Models.User> users)
         {
             throw new NotImplementedException();
         }
@@ -53,6 +73,11 @@ namespace ApproxiMate.iOS
             {
                 return string.Empty;
             }
+        }
+
+        public Task SendMessage(string userMessage, string id)
+        {
+            throw new NotImplementedException();
         }
 
         public bool SignOut()

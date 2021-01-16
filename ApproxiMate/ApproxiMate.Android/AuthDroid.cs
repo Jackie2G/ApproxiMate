@@ -177,21 +177,20 @@ namespace ApproxiMate.Droid
                 .PutAsync(user);
         }
 
-        public ObservableCollection<string> GetUserMessages()
-        {
-            var uuid = FirebaseAuth.Instance.CurrentUser;
-            var token = uuid.Uid;
+        //public ObservableCollection<string> GetUserMessages()
+        //{
+        //    var uuid = FirebaseAuth.Instance.CurrentUser;
+        //    var token = uuid.Uid;
 
-            var messages =   client
-                                .Child("Users")
-                                .Child(token)
-                                .Child("PairedList")
-                                .Child("IbGI3bPBtbSpV7qiCZmOY0tRce02")
-                                .AsObservable<string>()
-                                .AsObservableCollection();
+        //    var messages =   client
+        //                        .Child("Users")
+        //                        .Child(token)
+        //                        .Child("PairedList")
+        //                        .AsObservable<string>()
+        //                        .AsObservableCollection();
 
-            return messages;
-        }
+        //    return messages;
+        //}
 
         public async Task SendMessage(string userMessage, string id)
         {
@@ -209,6 +208,74 @@ namespace ApproxiMate.Droid
                 Child("Users")
                 .Child(token)
                 .PutAsync(user);
+        }
+
+        public async Task <ObservableCollection<User>> GetUserMessages(ObservableCollection<User> users)
+        {
+            var uuid = FirebaseAuth.Instance.CurrentUser;
+            var token = uuid.Uid;
+
+            var user = await GetUserProfile();
+
+            //var userData = client
+            //    .Child("Users")
+            //    .AsObservable<User>()
+            //    .AsObservableCollection().ToList();
+
+            var finaldata = users.Where(p => user.PairedList.Any(p2 => p2.Id == p.Id)).ToList();
+
+            return new ObservableCollection<User>(finaldata);
+
+        }
+
+        public async Task<int> GetMatches()
+        {
+            var user = await GetUserProfile();
+
+            int counter = 0;
+
+            var usersData = await client
+                .Child("Users")
+                .OnceAsync<User>();
+
+            foreach(var item in usersData)
+            {
+                for (int i = 0; i < item.Object.LoveList.Count(); i++)
+                {
+                    for (int j = 0; j < user.LoveList.Count(); j++)
+                    {
+                        Console.WriteLine(user.LoveList[j].Length + " : " + item.Object.LoveList[i].Length);
+                        //Console.WriteLine("i: " + i.ToString() +" j:" + j.ToString());
+                        if (user.LoveList[j].Equals(item.Object.Id.ToString()) && item.Object.LoveList[i].ToString().Equals(user.Id))
+                        {
+                            //Console.WriteLine("podoba sie");
+                            if (user.PairedList == null)
+                                user.PairedList = new List<UserMessages>();
+
+                            if (item.Object.PairedList == null)
+                                item.Object.PairedList = new List<UserMessages>();
+
+                            user.PairedList.Add(new UserMessages() { Id = user.Id, Messages = new List<string>() { "hi" } });
+                            item.Object.PairedList.Add(new UserMessages() { Id = item.Object.Id, Messages = new List<string>() { "hi" } });
+
+                            //await client.
+                            //     Child("Users")
+                            //    .Child(item.Object.Id)
+                            //    .PutAsync(user);
+
+                            counter++;
+                        }
+                    }
+                }
+            }
+
+            await client.
+                Child("Users")
+                .Child(user.Id)
+                .PutAsync(user);
+
+            return counter;
+
         }
     }
 }

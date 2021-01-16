@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 namespace ApproxiMate.Views
@@ -65,9 +66,9 @@ namespace ApproxiMate.Views
         private ObservableCollection<User> _users = new ObservableCollection<User>();
 
         private ObservableCollection<User> _userProfile = new ObservableCollection<User>();
-        private ObservableCollection<string> _messages = new ObservableCollection<string>();
+        private ObservableCollection<User> _messages = new ObservableCollection<User>();
 
-        public ObservableCollection<string> Messages
+        public ObservableCollection<User> Messages
         {
             get { return _messages; }
             set
@@ -104,7 +105,7 @@ namespace ApproxiMate.Views
             _firebaseStorageHelper = new FirebaseStorageHelper();
             _services = new DBFirebase();
             Users = _services.getUsers();
-            Messages = auth.GetUserMessages();
+            //Messages = auth.GetUserMessages();
             //AddUserCommand = new Command(async () => await AddStudentAsync(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
             AddUserCommand = new Command(async () => await auth.AddUser(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
             //UserProfile = auth.GetUser();
@@ -156,9 +157,14 @@ namespace ApproxiMate.Views
         {
             var list = new List<User>(UserProfile);
             testUser = await auth.GetUserProfile();
+            //var list1 = Users.Where(p => testUser.PairedList.Any(p2 => p2.Id == p.Id)).ToList();
+            //var userMessages = new ObservableCollection<User>();
             var testowo = new ObservableCollection<User>();
             testowo.Add(testUser);
+            //foreach (var item in list1)
+            //    userMessages.Add(item);
             UserProfile = testowo;
+            Messages = await auth.GetUserMessages(Users);
             //var test = await _firebaseStorageHelper.GetFile("https://firebasestorage.googleapis.com/v0/b/approximatefirebase.appspot.com/o/UserPhotos%2FIMG_20200805_192157.jpg?alt=media&token=b020a653-88f3-49b5-b862-b4b59a501e53");
             var test = testUser.ImageUrl;
             _photo = ImageSource.FromUri(new System.Uri(test));

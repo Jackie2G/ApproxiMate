@@ -4,7 +4,7 @@
              x:Class="ApproxiMate.Views.Messages">
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding Users}">
+            <ListView ItemsSource="{Binding Messages}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

@@ -21,6 +21,7 @@ namespace ApproxiMate
         //string GetUserProfile();
         Task<int> GetMatches();
         Task <User> GetUserProfile();
+        Task <User> GetUserSend(string id);
         bool SignOut();
         bool IsSignIn();
     }

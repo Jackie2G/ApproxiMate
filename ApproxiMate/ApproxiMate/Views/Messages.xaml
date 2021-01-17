@@ -7,8 +7,17 @@
             <ListView ItemsSource="{Binding Messages}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <Button Clicked="Button_Clicked" Text="{Binding Name}"></Button>
+                        <ViewCell >
+                            <ImageButton Clicked="Button_Clicked" 
+                                         Source="{Binding ImageUrl}"
+                                         HorizontalOptions="Start"
+                                         WidthRequest="40"
+                                         HeightRequest="40"
+                                         Aspect="Fill"
+                                         Margin="0,5,0,5"
+                                         CornerRadius="20"
+                                         BorderWidth="2">
+                            </ImageButton>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

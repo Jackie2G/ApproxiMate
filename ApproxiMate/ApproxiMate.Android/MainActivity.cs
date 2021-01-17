@@ -24,7 +24,7 @@ namespace ApproxiMate.Droid
 
             FirebaseApp.InitializeApp(Application.Context);
 
-            
+            Rg.Plugins.Popup.Popup.Init(this);
 
             Shiny.AndroidShinyHost.Init(Application, new MyStartup());
 

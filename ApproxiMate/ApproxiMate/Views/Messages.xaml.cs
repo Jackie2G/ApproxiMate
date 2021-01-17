@@ -1,4 +1,5 @@
 ﻿using ApproxiMate.Models;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +24,11 @@ namespace ApproxiMate.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            Button btn = sender as Button;
+            ImageButton btn = sender as ImageButton;
             var item = btn.BindingContext as User;
             var test = await auth.GetUserProfile();
-            Application.Current.MainPage = new Chat(test, item.Id);
+            //Application.Current.MainPage = new Chat(test, item.Id);
+            PopupNavigation.Instance.PushAsync(new MyPopupPage(test, item.Id));
 
         }
     }

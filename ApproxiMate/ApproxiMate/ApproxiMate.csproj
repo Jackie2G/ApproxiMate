@@ -16,6 +16,7 @@
     <PackageReference Include="LiveXAML" Version="2.1.73" />
     <PackageReference Include="MLToolkit.Forms.SwipeCardView" Version="2.2.0" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.10" />
     <PackageReference Include="Shiny.Core" Version="1.2.0.1755" />
     <PackageReference Include="Shiny.Notifications" Version="1.2.0.1755" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
@@ -24,6 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="MyPopupPage.xaml.cs">
+      <DependentUpon>MyPopupPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
     </Compile>
@@ -31,6 +35,9 @@
 
   <ItemGroup>
     <EmbeddedResource Update="LoggedPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MyPopupPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="RegisterPage.xaml">

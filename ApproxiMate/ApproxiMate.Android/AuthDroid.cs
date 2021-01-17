@@ -198,16 +198,23 @@ namespace ApproxiMate.Droid
             var token = uuid.Uid;
 
             var user = await GetUserProfile();
+            var userTo = await GetUserSend(id);
 
             if (user.PairedList == null)
                 user.PairedList = new List<UserMessages>();
 
-            user.PairedList.Where(x => x.Id == id).FirstOrDefault().Messages.Add(user.Name + ": " + userMessage);
+            user.PairedList.Where(x => x.Id == id).FirstOrDefault().Messages.Add("You" + ": " + userMessage);
+            userTo.PairedList.Where(x => x.Id == user.Id).FirstOrDefault().Messages.Add(user.Name + ": " + userMessage);
 
             await client.
                 Child("Users")
                 .Child(token)
                 .PutAsync(user);
+
+            await client
+                .Child("Users")
+                .Child(id)
+                .PutAsync(userTo);
         }
 
         public async Task <ObservableCollection<User>> GetUserMessages(ObservableCollection<User> users)
@@ -293,6 +300,16 @@ namespace ApproxiMate.Droid
                 .PutAsync(user);
 
             return counter;
+        }
+
+        public async Task<User> GetUserSend(string id)
+        {
+            var userData = (await client.
+                Child("Users")
+                .Child(id)
+                .OnceSingleAsync<User>());
+
+            return userData;
         }
     }
 }

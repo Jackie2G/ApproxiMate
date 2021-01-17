@@ -244,26 +244,44 @@ namespace ApproxiMate.Droid
                 {
                     for (int j = 0; j < user.LoveList.Count(); j++)
                     {
-                        Console.WriteLine(user.LoveList[j].Length + " : " + item.Object.LoveList[i].Length);
-                        //Console.WriteLine("i: " + i.ToString() +" j:" + j.ToString());
-                        if (user.LoveList[j].Equals(item.Object.Id.ToString()) && item.Object.LoveList[i].ToString().Equals(user.Id))
+                        if (user.LoveList[j] == item.Object.Id && item.Object.LoveList[i] == user.Id)
                         {
-                            //Console.WriteLine("podoba sie");
                             if (user.PairedList == null)
                                 user.PairedList = new List<UserMessages>();
 
-                            if (item.Object.PairedList == null)
+                            else if (item.Object.PairedList == null)
                                 item.Object.PairedList = new List<UserMessages>();
 
-                            user.PairedList.Add(new UserMessages() { Id = user.Id, Messages = new List<string>() { "hi" } });
-                            item.Object.PairedList.Add(new UserMessages() { Id = item.Object.Id, Messages = new List<string>() { "hi" } });
+                            bool userContains = false;
+                            bool itemContains = false;
 
-                            //await client.
-                            //     Child("Users")
-                            //    .Child(item.Object.Id)
-                            //    .PutAsync(user);
+                            foreach(var it in user.PairedList)
+                            {
+                                if (it.Id == item.Object.Id)
+                                    userContains = true;
+                            }
 
-                            counter++;
+                            foreach(var itt in item.Object.PairedList)
+                            {
+                                if (itt.Id == user.Id)
+                                    itemContains = true;
+                            }
+
+                            if (userContains == false)
+                            {
+                                user.PairedList.Add(new UserMessages() { Id = item.Object.Id, Messages = new List<string>() { "" } });
+                                counter++;
+                            }
+
+                            if (itemContains == false)
+                            {
+                                item.Object.PairedList.Add(new UserMessages() { Id = user.Id, Messages = new List<string>() { "" } });
+
+                                await client.
+                                 Child("Users")
+                                .Child(item.Object.Id)
+                                .PutAsync(item.Object);
+                            }
                         }
                     }
                 }
@@ -275,7 +293,6 @@ namespace ApproxiMate.Droid
                 .PutAsync(user);
 
             return counter;
-
         }
     }
 }

@@ -41,7 +41,10 @@ namespace ApproxiMate
             {
                 await Task.Delay(10000);
                 int counter = await auth.GetMatches();
-                await this.notifications.Send("New Matches", "cos" + counter.ToString());
+                if (counter == 0)
+                    await this.notifications.Send("New Matches", "No new matches.");
+                else
+                    await this.notifications.Send("New Matches", "You've got " + counter.ToString() + " new matches!");
                 return true;
             }
             return true;

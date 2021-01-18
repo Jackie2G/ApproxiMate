@@ -4,12 +4,12 @@
              x:Class="ApproxiMate.MyPopupPage"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="AliceBlue">
+        <StackLayout BackgroundColor="White">
             <ListView ItemsSource="{Binding Messages}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Label Text="{Binding}" TextColor="White"></Label>
+                            <Label Text="{Binding}" TextColor="Black"></Label>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

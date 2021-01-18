@@ -9,6 +9,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Rg.Plugins.Popup.Services;
 using ApproxiMate.Models;
+using System.Threading;
+using System.Collections.ObjectModel;
 
 namespace ApproxiMate
 {
@@ -16,17 +18,41 @@ namespace ApproxiMate
     public partial class MyPopupPage
     {
         IAuth auth;
-        public List<string> Messages { get; set; }
+        private ObservableCollection<string> _messages = new ObservableCollection<string>();
+
+        public ObservableCollection<string> Messages
+        {
+            get { return _messages; }
+            set
+            {
+                _messages = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string UserMessage { get; set; }
         public string Id { get; set; }
+        private Thread _refreshMessages;
+        private bool _stop = false;
 
         public MyPopupPage(User user, string id)
         {
             BindingContext = this;
-            Messages = user.PairedList.Where(x => x.Id == id).FirstOrDefault().Messages;
+            Messages = new ObservableCollection<string>(user.PairedList.Where(x => x.Id == id).FirstOrDefault().Messages);
             Id = id;
             InitializeComponent();
             auth = DependencyService.Get<IAuth>();
+
+            _refreshMessages = new Thread(async () => 
+            {
+                while(!_stop)
+                {
+                    Messages = new ObservableCollection<string>((await auth.GetUserProfile()).PairedList.Where(x => x.Id == id).FirstOrDefault().Messages);
+                    Thread.Sleep(10000);
+                }
+            });
+
+            _refreshMessages.Start();
         }
 
         private void Button_Clicked(object sender, EventArgs e)
@@ -40,6 +66,7 @@ namespace ApproxiMate
         private void Button_Clicked_1(object sender, EventArgs e)
         {
             //Application.Current.MainPage = new Messages();
+            _stop = true;
             PopupNavigation.Instance.PopAsync(true);
         }
     }

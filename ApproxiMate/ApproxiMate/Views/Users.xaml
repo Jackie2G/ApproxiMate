@@ -54,12 +54,12 @@
         </swipecardview:SwipeCardView>
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10, 10, 20, 90" Spacing="30">
             <StackLayout>
-                <Button x:Name="nopeButton" ImageSource="hate.jpg" Clicked="nopeButton_Clicked"
-                        WidthRequest="60" HeightRequest="60" CornerRadius="30" BackgroundColor="White" Scale="1"></Button>
+                <ImageButton x:Name="nopeButton" Source="hate.jpg" Clicked="nopeButton_Clicked"
+                        WidthRequest="60" HeightRequest="60" CornerRadius="30" BackgroundColor="White" Scale="1" Aspect="AspectFill" ></ImageButton>
             </StackLayout>
             <StackLayout VerticalOptions="Center">
-                <Button x:Name="likeButton" ImageSource="love.jpg" Clicked="likeButton_Clicked"
-                        WidthRequest="60" HeightRequest="60" CornerRadius="30" BackgroundColor="Green" Scale="1"></Button>
+                <ImageButton x:Name="likeButton" Source="love.jpg" Clicked="likeButton_Clicked"
+                        WidthRequest="60" HeightRequest="60" CornerRadius="30" BackgroundColor="Green" Scale="1" Aspect="AspectFill"></ImageButton>
             </StackLayout>
         </StackLayout>
     </StackLayout>

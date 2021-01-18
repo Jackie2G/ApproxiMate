@@ -28,8 +28,7 @@ namespace ApproxiMate.Views
             var item = btn.BindingContext as User;
             var test = await auth.GetUserProfile();
             //Application.Current.MainPage = new Chat(test, item.Id);
-            PopupNavigation.Instance.PushAsync(new MyPopupPage(test, item.Id));
-
+            await PopupNavigation.Instance.PushAsync(new MyPopupPage(test, item.Id));
         }
     }
 }

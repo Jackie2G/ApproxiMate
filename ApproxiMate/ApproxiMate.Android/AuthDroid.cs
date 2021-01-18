@@ -93,7 +93,17 @@ namespace ApproxiMate.Droid
 
         public async Task AddUser(string name, int age, string city, string description, string gender, string oppositeGender, string imageUrl)
         {
-            User u = new User() { Name = name, Age = age, City = city, Description = description, Gender = gender, OppositeGender = oppositeGender, ImageUrl = imageUrl, Id = FirebaseAuth.Instance.CurrentUser.Uid, LoveList = new List<string>() { "empty" }, HateList = new List<string>() { "empty" } };
+            var currentUser = await GetUserProfile();
+            User u;
+            if (currentUser != null)
+            {
+                u = new User() { Name = name, Age = age, City = city, Description = description, Gender = gender, OppositeGender = oppositeGender, ImageUrl = imageUrl, Id = FirebaseAuth.Instance.CurrentUser.Uid, LoveList = currentUser.LoveList, HateList = currentUser.HateList, PairedList = currentUser.PairedList };
+            }
+            else
+            {
+                u = new User() { Name = name, Age = age, City = city, Description = description, Gender = gender, OppositeGender = oppositeGender, ImageUrl = imageUrl, Id = FirebaseAuth.Instance.CurrentUser.Uid, LoveList = new List<string>() { "empty" }, HateList = new List<string>() { "empty" } };
+            }
+           
             var uuid = FirebaseAuth.Instance.CurrentUser;
             var token = uuid.Uid;
 

@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ApproxiMate.Views.Profile"
-             Title="Profile">
+             x:Class="ApproxiMate.ProfilePopup"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
     <ContentPage.Content>
         <Grid Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackLayout Grid.Row="0" VerticalOptions="Center">
+            <StackLayout Grid.Row="0" VerticalOptions="Center" BackgroundColor="White">
                 <Label Text="User profile" FontAttributes="Bold" FontSize="Title" TextColor="Gray" HorizontalTextAlignment="Center"></Label>
                 <Image Source="{Binding photoImage}" HeightRequest="150"></Image>
                 <Button WidthRequest="200" Text="Select photo" Command="{Binding SelectPhotoCommand}"></Button>
                 <!--<Button WidthRequest="200" Text="Upload" Command="{Binding UploadPhotoCommand}"></Button>-->
             </StackLayout>
-            <StackLayout Grid.Row="1" VerticalOptions="Start">
+            <StackLayout Grid.Row="1" VerticalOptions="Start" BackgroundColor="White">
                 <Entry x:Name="entryName" Text="{Binding Name}" Placeholder="Name (Required)"></Entry>
                 <Entry Text="{Binding Age}" Placeholder="Age (Required)"></Entry>
                 <Entry Text="{Binding Gender}" Placeholder="Gender (Required)"></Entry>
@@ -27,4 +27,4 @@
             </StackLayout>
         </Grid>
     </ContentPage.Content>
-</ContentPage>
+</pages:PopupPage>

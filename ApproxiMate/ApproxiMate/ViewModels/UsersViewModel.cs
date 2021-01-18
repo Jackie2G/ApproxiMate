@@ -17,13 +17,97 @@ namespace ApproxiMate.Views
     public class UsersViewModel: BaseViewModel
     {
         IAuth auth;
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public string City { get; set; }
-        public string Description { get; set; }
-        public string Gender { get; set; }
-        public string OppositeGender { get; set; }
-        public string ImageUrl { get; set; }
+        private string _name;
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+                OnPropertyChanged();
+            }
+        }
+        private int _age;
+        public int Age
+        {
+            get
+            {
+                return _age;
+            }
+            set
+            {
+                _age = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _city;
+        public string City
+        {
+            get
+            {
+                return _city;
+            }
+            set
+            {
+                _city = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _description;
+        public string Description
+        {
+            get
+            {
+                return _description;
+            }
+            set
+            {
+                _description = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _gender;
+        public string Gender
+        {
+            get
+            {
+                return _gender;
+            }
+            set
+            {
+                _gender = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _oppositeGender;
+        public string OppositeGender
+        {
+            get
+            {
+                return _oppositeGender;
+            }
+            set
+            {
+                _oppositeGender = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _imageUrl;
+        public string ImageUrl
+        {
+            get
+            {
+                return _imageUrl;
+            }
+            set
+            {
+                _imageUrl = value;
+                OnPropertyChanged();
+            }
+        }
         public string UserMessage { get; set; }
         private ImageSource _photoImage;
         public User testUser;
@@ -108,12 +192,12 @@ namespace ApproxiMate.Views
             //Users = await auth.GetUsersDisplay();
             //Messages = auth.GetUserMessages();
             //AddUserCommand = new Command(async () => await AddStudentAsync(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
-            AddUserCommand = new Command(async () => await auth.AddUser(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
+            AddUserCommand = new Command(async () => await auth.AddUser(Name, Age, City, Description, Gender, OppositeGender, ImageUrl = await UploadPhoto(ImageUrl)));
             //UserProfile = auth.GetUser();
             DownloadPhoto();
             
             SelectPhotoCommand = new Command(async () => await SelectPhoto());
-            UploadPhotoCommand = new Command(async () => await UploadPhoto());
+            //UploadPhotoCommand = new Command(async () => await UploadPhoto());
             var test = auth.GetUserProfile();
             //if (UserProfile.Count != 0) 
                 //DownloadPhoto();
@@ -143,15 +227,24 @@ namespace ApproxiMate.Views
             }
         }
 
-        public async Task AddStudentAsync(string name, int age, string city, string description, string gender, string oppositeGender, string imageUrl)
-        {
-            await _services.AddUser(name, age, city, description, gender, oppositeGender, imageUrl);
-        }
+        //public async Task AddStudentAsync(string name, int age, string city, string description, string gender, string oppositeGender, string imageUrl)
+        //{
+        //    await _services.AddUser(name, age, city, description, gender, oppositeGender, imageUrl);
+        //}
 
-        public async Task UploadPhoto()
+        public async Task<string> UploadPhoto(string url)
         {
-            var test = await _firebaseStorageHelper.UploadFile(file.GetStream(), Path.GetFileName(file.Path));
-            ImageUrl = test;
+            string newUrl;
+            if (url != null && file == null)
+            {
+                return ImageUrl;
+            }
+            else
+            {
+                newUrl = await _firebaseStorageHelper.UploadFile(file.GetStream(), Path.GetFileName(file.Path));
+                ImageUrl = newUrl;
+                return ImageUrl;
+            }         
         }
 
         public async Task DownloadPhoto()
@@ -159,18 +252,27 @@ namespace ApproxiMate.Views
             Users = await auth.GetUsersDisplay();
             var list = new List<User>(UserProfile);
             testUser = await auth.GetUserProfile();
-            //var list1 = Users.Where(p => testUser.PairedList.Any(p2 => p2.Id == p.Id)).ToList();
-            //var userMessages = new ObservableCollection<User>();
+            if (testUser != null)
+                ReturnUserData(testUser);
             var testowo = new ObservableCollection<User>();
             testowo.Add(testUser);
-            //foreach (var item in list1)
-            //    userMessages.Add(item);
             UserProfile = testowo;
             Messages = await auth.GetUserMessages(Users);
-            //var test = await _firebaseStorageHelper.GetFile("https://firebasestorage.googleapis.com/v0/b/approximatefirebase.appspot.com/o/UserPhotos%2FIMG_20200805_192157.jpg?alt=media&token=b020a653-88f3-49b5-b862-b4b59a501e53");
             var test = testUser.ImageUrl;
             _photo = ImageSource.FromUri(new System.Uri(test));
             Photo = _photo;
+        }
+
+        public void ReturnUserData(User user)
+        {
+            photoImage = user.ImageUrl;
+            Name = user.Name;
+            Age = user.Age;
+            Gender = user.Gender;
+            OppositeGender = user.OppositeGender;
+            City = user.City;
+            Description = user.Description;
+            ImageUrl = user.ImageUrl;
         }
     } 
 }

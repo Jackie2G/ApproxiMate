@@ -224,14 +224,27 @@ namespace ApproxiMate.Droid
 
             var user = await GetUserProfile();
 
-            //var userData = client
-            //    .Child("Users")
-            //    .AsObservable<User>()
-            //    .AsObservableCollection().ToList();
+            var pairedUsers = new ObservableCollection<User>();
 
-            var finaldata = users.Where(p => user.PairedList.Any(p2 => p2.Id == p.Id)).ToList();
+            if (user.PairedList != null)
+            {
+                foreach (var item in user.PairedList)
+                {
+                    var usersData = await client
+                    .Child("Users")
+                    .Child(item.Id)
+                    .OnceSingleAsync<User>();
 
-            return new ObservableCollection<User>(finaldata);
+                    Console.WriteLine(((User)usersData).Id);
+
+                    pairedUsers.Add((User)usersData);
+                }
+            }
+
+            //var finaldata = users.Where(p => user.PairedList.Any(p2 => p2.Id == p.Id)).ToList();
+
+            //return new ObservableCollection<User>(finaldata);
+            return pairedUsers;
 
         }
 
@@ -310,6 +323,27 @@ namespace ApproxiMate.Droid
                 .OnceSingleAsync<User>());
 
             return userData;
+        }
+
+        public async Task<ObservableCollection<User>> GetUsersDisplay()
+        {
+            var user = await GetUserProfile();
+
+            var usersData = await client
+                .Child("Users")
+                .OnceAsync<User>();
+
+            var newUsers = new ObservableCollection<User>();
+
+            foreach(var item in usersData)
+            {
+                if (!user.LoveList.Contains(item.Object.Id) && !user.HateList.Contains(item.Object.Id) && item.Object.Id != user.Id && user.OppositeGender == item.Object.Gender)
+                {
+                    newUsers.Add(item.Object);
+                }
+            }
+
+            return newUsers;
         }
     }
 }

@@ -104,7 +104,8 @@ namespace ApproxiMate.Views
             auth = DependencyService.Get<IAuth>();
             _firebaseStorageHelper = new FirebaseStorageHelper();
             _services = new DBFirebase();
-            Users = _services.getUsers();
+            //Users = _services.getUsers();
+            //Users = await auth.GetUsersDisplay();
             //Messages = auth.GetUserMessages();
             //AddUserCommand = new Command(async () => await AddStudentAsync(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
             AddUserCommand = new Command(async () => await auth.AddUser(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
@@ -155,6 +156,7 @@ namespace ApproxiMate.Views
 
         public async Task DownloadPhoto()
         {
+            Users = await auth.GetUsersDisplay();
             var list = new List<User>(UserProfile);
             testUser = await auth.GetUserProfile();
             //var list1 = Users.Where(p => testUser.PairedList.Any(p2 => p2.Id == p.Id)).ToList();

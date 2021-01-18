@@ -1,16 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ApproxiMate.MainPage">
+             x:Class="ApproxiMate.MainPage"
+             >
 
     <StackLayout
         VerticalOptions="Center"
-        Margin="20">
+        Margin="20"
+        >
         
         <Label
             Text="ApproxiMate"
             HorizontalOptions="Center"
-            TextColor="AliceBlue"
+            TextColor="Magenta"
             FontSize="35"
             Margin="0, 20">
         </Label>
@@ -24,7 +26,8 @@
         <Entry
             Placeholder="Password"
             IsPassword="True"
-            x:Name="PasswordInput">
+            x:Name="PasswordInput"
+            >
         </Entry>
         
         <Button
@@ -37,7 +40,7 @@
         
         <Button
             Text="Create new account"
-            TextColor="AliceBlue"
+            TextColor="White"
             HorizontalOptions="Center"
             BackgroundColor="Transparent"
             Clicked="SignUpClicked">

@@ -146,6 +146,7 @@ namespace ApproxiMate.Views
         public Command AddUserCommand { get; }
         public Command SelectPhotoCommand { get; }
         public Command UploadPhotoCommand { get; }
+        public Command RefreshMessages { get; }
 
         private ObservableCollection<User> _users = new ObservableCollection<User>();
 
@@ -188,19 +189,12 @@ namespace ApproxiMate.Views
             auth = DependencyService.Get<IAuth>();
             _firebaseStorageHelper = new FirebaseStorageHelper();
             _services = new DBFirebase();
-            //Users = _services.getUsers();
-            //Users = await auth.GetUsersDisplay();
-            //Messages = auth.GetUserMessages();
-            //AddUserCommand = new Command(async () => await AddStudentAsync(Name, Age, City, Description, Gender, OppositeGender, ImageUrl));
             AddUserCommand = new Command(async () => await auth.AddUser(Name, Age, City, Description, Gender, OppositeGender, ImageUrl = await UploadPhoto(ImageUrl)));
-            //UserProfile = auth.GetUser();
+            RefreshMessages = new Command(async () => await RefreshUserMessages());
             DownloadPhoto();
             
             SelectPhotoCommand = new Command(async () => await SelectPhoto());
-            //UploadPhotoCommand = new Command(async () => await UploadPhoto());
             var test = auth.GetUserProfile();
-            //if (UserProfile.Count != 0) 
-                //DownloadPhoto();
         }
 
         public async Task SelectPhoto()
@@ -227,11 +221,6 @@ namespace ApproxiMate.Views
             }
         }
 
-        //public async Task AddStudentAsync(string name, int age, string city, string description, string gender, string oppositeGender, string imageUrl)
-        //{
-        //    await _services.AddUser(name, age, city, description, gender, oppositeGender, imageUrl);
-        //}
-
         public async Task<string> UploadPhoto(string url)
         {
             string newUrl;
@@ -247,6 +236,11 @@ namespace ApproxiMate.Views
             }         
         }
 
+        public async Task RefreshUserMessages()
+        {
+            Messages = await auth.GetUserMessages();
+        }
+
         public async Task DownloadPhoto()
         {
             Users = await auth.GetUsersDisplay();
@@ -257,7 +251,7 @@ namespace ApproxiMate.Views
             var testowo = new ObservableCollection<User>();
             testowo.Add(testUser);
             UserProfile = testowo;
-            Messages = await auth.GetUserMessages(Users);
+            Messages = await auth.GetUserMessages();
             var test = testUser.ImageUrl;
             _photo = ImageSource.FromUri(new System.Uri(test));
             Photo = _photo;

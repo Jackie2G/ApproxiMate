@@ -8,7 +8,7 @@
             VerticalOptions="Center">
 
             <Button
-                Text="Create Profile"
+                Text="Create/update Profile"
                 Clicked="CreateProfile"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">

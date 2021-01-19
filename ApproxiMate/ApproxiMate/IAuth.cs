@@ -17,9 +17,7 @@ namespace ApproxiMate
         Task SendMessage(string userMessage, string id);
         ObservableCollection<User> GetUser();
         Task<ObservableCollection<User>> GetUsersDisplay();
-        Task<ObservableCollection<User>> GetUserMessages(ObservableCollection<User> users);
-        //ObservableCollection<string> GetUserMessages();
-        //string GetUserProfile();
+        Task<ObservableCollection<User>> GetUserMessages();
         Task<int> GetMatches();
         Task <User> GetUserProfile();
         Task <User> GetUserSend(string id);

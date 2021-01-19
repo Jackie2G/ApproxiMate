@@ -227,7 +227,7 @@ namespace ApproxiMate.Droid
                 .PutAsync(userTo);
         }
 
-        public async Task <ObservableCollection<User>> GetUserMessages(ObservableCollection<User> users)
+        public async Task <ObservableCollection<User>> GetUserMessages()
         {
             var uuid = FirebaseAuth.Instance.CurrentUser;
             var token = uuid.Uid;
@@ -279,7 +279,7 @@ namespace ApproxiMate.Droid
                             if (user.PairedList == null)
                                 user.PairedList = new List<UserMessages>();
 
-                            else if (item.Object.PairedList == null)
+                            if (item.Object.PairedList == null)
                                 item.Object.PairedList = new List<UserMessages>();
 
                             bool userContains = false;

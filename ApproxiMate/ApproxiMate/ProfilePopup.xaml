@@ -17,8 +17,11 @@
             </StackLayout>
             <StackLayout Grid.Row="1" VerticalOptions="Start" BackgroundColor="White">
                 <Entry x:Name="entryName" Text="{Binding Name}" Placeholder="Name (Required)"></Entry>
+                <Label Text="Age" TextColor="Magenta"></Label>
                 <Entry Text="{Binding Age}" Placeholder="Age (Required)"></Entry>
+                <Label Text="Your Gender" TextColor="Magenta"></Label>
                 <Entry Text="{Binding Gender}" Placeholder="Enter Male/Female"></Entry>
+                <Label Text="Opposite gender" TextColor="Magenta"></Label>
                 <Entry Text="{Binding OppositeGender}" Placeholder="Enter Male/Female"></Entry>
                 <Entry Text="{Binding City}" Placeholder="City (Required)"></Entry>
                 <Entry Text="{Binding Description}" Placeholder="Description (Required)"></Entry>

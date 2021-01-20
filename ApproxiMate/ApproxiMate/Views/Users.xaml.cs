@@ -24,16 +24,29 @@ namespace ApproxiMate.Views
 
         private void nopeButton_Clicked(object sender, EventArgs e)
         {
-            SwipeView1.InvokeSwipe((MLToolkit.Forms.SwipeCardView.Core.SwipeCardDirection)MLToolkit.Forms.SwipeCardView.Core.SwipeCardDirection.Left);
-            auth.AddHateUser(((User)SwipeView1.TopItem).Id);
+            try
+            {
+                SwipeView1.InvokeSwipe((MLToolkit.Forms.SwipeCardView.Core.SwipeCardDirection)MLToolkit.Forms.SwipeCardView.Core.SwipeCardDirection.Left);
+                auth.AddHateUser(((User)SwipeView1.TopItem).Id);
+            }
+            catch
+            {
+                DisplayAlert("Alert", "User doesn't exists", "Ok");
+            }
 
         }
 
         private void likeButton_Clicked(object sender, EventArgs e)
         {
-            SwipeView1.InvokeSwipe((MLToolkit.Forms.SwipeCardView.Core.SwipeCardDirection)MLToolkit.Forms.SwipeCardView.Core.SwipeCardDirection.Right);
-            auth.AddLoveUser(((User)SwipeView1.TopItem).Id);
-
+            try
+            {
+                SwipeView1.InvokeSwipe((MLToolkit.Forms.SwipeCardView.Core.SwipeCardDirection)MLToolkit.Forms.SwipeCardView.Core.SwipeCardDirection.Right);
+                auth.AddLoveUser(((User)SwipeView1.TopItem).Id);
+            }
+            catch
+            {
+                DisplayAlert("Alert", "User doesn't exists", "Ok");
+            }
         }
     }
 }

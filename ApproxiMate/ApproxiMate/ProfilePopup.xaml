@@ -18,8 +18,8 @@
             <StackLayout Grid.Row="1" VerticalOptions="Start" BackgroundColor="White">
                 <Entry x:Name="entryName" Text="{Binding Name}" Placeholder="Name (Required)"></Entry>
                 <Entry Text="{Binding Age}" Placeholder="Age (Required)"></Entry>
-                <Entry Text="{Binding Gender}" Placeholder="Gender (Required)"></Entry>
-                <Entry Text="{Binding OppositeGender}" Placeholder="Gender you are interested in (Required)"></Entry>
+                <Entry Text="{Binding Gender}" Placeholder="Enter Male/Female"></Entry>
+                <Entry Text="{Binding OppositeGender}" Placeholder="Enter Male/Female"></Entry>
                 <Entry Text="{Binding City}" Placeholder="City (Required)"></Entry>
                 <Entry Text="{Binding Description}" Placeholder="Description (Required)"></Entry>
                 <Button WidthRequest="200" Text="Confirm" Command="{Binding AddUserCommand}"></Button>

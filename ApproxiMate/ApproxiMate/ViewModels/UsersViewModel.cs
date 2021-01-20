@@ -232,7 +232,7 @@ namespace ApproxiMate.Views
             {
                 newUrl = await _firebaseStorageHelper.UploadFile(file.GetStream(), Path.GetFileName(file.Path));
                 ImageUrl = newUrl;
-                return ImageUrl;
+                return ImageUrl; 
             }         
         }
 

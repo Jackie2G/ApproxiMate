@@ -18,6 +18,7 @@ using Firebase.Database;
 using Firebase.Database.Query;
 using System.Collections.ObjectModel;
 using Java.Util;
+using Rg.Plugins.Popup.Services;
 
 [assembly: Dependency(typeof(AuthDroid))]
 namespace ApproxiMate.Droid
@@ -56,6 +57,10 @@ namespace ApproxiMate.Droid
                 e.PrintStackTrace();
                 return string.Empty;
             }
+            catch
+            {
+                return string.Empty;
+            }
         }
 
         public bool SignOut()
@@ -89,6 +94,10 @@ namespace ApproxiMate.Droid
                 e.PrintStackTrace();
                 return string.Empty;
             }
+            catch(NullReferenceException e)
+            {
+                return string.Empty;
+            }
         }
 
         public async Task AddUser(string name, int age, string city, string description, string gender, string oppositeGender, string imageUrl)
@@ -116,6 +125,8 @@ namespace ApproxiMate.Droid
                 .Child("Users")
                 .Child(token)
                 .PutAsync(u);
+
+            await PopupNavigation.Instance.PopAsync(true);
         }
 
         public ObservableCollection<User> GetUser()
@@ -160,10 +171,6 @@ namespace ApproxiMate.Droid
             var user = await GetUserProfile();
 
             user.LoveList.Add(id);
-            if (user.PairedList == null)
-                user.PairedList = new List<UserMessages>();
-
-            user.PairedList.Add(new UserMessages() { Id = id, Messages = new List<string>() { "cos" } });
 
             await client.
                 Child("Users")
@@ -267,6 +274,11 @@ namespace ApproxiMate.Droid
             var usersData = await client
                 .Child("Users")
                 .OnceAsync<User>();
+
+            if (user.LoveList.Count == 1)
+            {
+                return counter;
+            }
 
             foreach(var item in usersData)
             {

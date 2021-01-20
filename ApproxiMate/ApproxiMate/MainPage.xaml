@@ -35,12 +35,12 @@
             Clicked="LoginClicked"
             Margin="60, 40"
             BackgroundColor="Transparent"
-            TextColor="White">
+            TextColor="Magenta">
         </Button>
         
         <Button
             Text="Create new account"
-            TextColor="White"
+            TextColor="Magenta"
             HorizontalOptions="Center"
             BackgroundColor="Transparent"
             Clicked="SignUpClicked">

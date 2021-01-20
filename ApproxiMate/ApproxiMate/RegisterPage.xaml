@@ -28,7 +28,7 @@
                 Clicked="SignUp"
                 Margin="60, 40"
                 BackgroundColor="Transparent"
-                TextColor="White">
+                TextColor="Magenta">
             </Button>
         </StackLayout>
     </ContentPage.Content>
